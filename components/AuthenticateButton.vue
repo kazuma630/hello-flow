@@ -4,6 +4,7 @@
       <button @click="signInOrOut">
         {{ user.loggedIn ? 'Sign Out' : 'Sign In/Up' }}
       </button>
+      <p>address: {{ user?.addr  }}</p>
     </div>
   </div>
 </template>
@@ -14,6 +15,7 @@ export default {
     return {
       user: {
         loggedIn: false,
+        addr: undefined,
       },
     };
   },
@@ -23,9 +25,13 @@ export default {
 
       if (this.user.loggedIn) {
         console.log("ログイン済み")
+        this.$fcl.currentUser().subscribe(console.log) // 現在のユーザー情報の取得
         this.$fcl.unauthenticate()
+        this.user.loggedIn = false
+        this.user.addr = undefined
       } else {
         console.log("ログインしていない")
+        this.$fcl.currentUser().subscribe(console.log)
         this.$fcl.authenticate()
       }
     },
