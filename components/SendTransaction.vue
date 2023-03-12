@@ -53,6 +53,15 @@ export default {
         ])
 
         const { transactionId } = tx
+
+        // ↑の記述は下のようにまとめちゃってもよき（というより、むしろ毎回authorizationとか叩く必要ないので、参照のがベターなはず）
+        // const transactionId = await this.$fcl.mutate({
+        //   cadence: simpleTransaction,
+        //   proposer: this.$fcl.currentUser,
+        //   payer: this.$fcl.currentUser,
+        //   limit: 50, // このlimitは何の制限？
+        // });
+
         this.status = `Transaction (${transactionId}) sent, waiting for confirmation`
 
         const unsub = this.$fcl
